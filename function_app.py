@@ -36,7 +36,7 @@ def get_maps_duration(start_lat, start_lon, end_lat, end_lon, api_key):
 @app.route(route="WeatherTrafficFunction", methods=["POST"])
 def WeatherTrafficFunction(req: func.HttpRequest) -> func.HttpResponse:
     try:
-        # ✅ Parse JSON body
+        # Parse JSON body
         body = req.get_json()
         logging.info('Python HTTP trigger function processed a request.')
         logging.info(body)
@@ -52,11 +52,11 @@ def WeatherTrafficFunction(req: func.HttpRequest) -> func.HttpResponse:
             dest_lat = route.get("dest_lat")
             dest_lon = route.get("dest_lon")
 
-            # ✅ Call WeatherAPI + Google Maps
+            # Call WeatherAPI + Google Maps
             weather = get_weather_data(origin_lat, origin_lon, weather_key)
             traffic = get_maps_duration(origin_lat, origin_lon, dest_lat, dest_lon, maps_key)
 
-            # ✅ Merge into route dict
+            # Merge into route dict
             route.update({
                 "weather": weather,
                 "traffic": traffic
@@ -75,3 +75,4 @@ def WeatherTrafficFunction(req: func.HttpRequest) -> func.HttpResponse:
             mimetype="application/json",
             status_code=500
         )
+
